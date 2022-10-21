@@ -1,8 +1,10 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView } from 'react-native'
-import { auth } from 'E:/Appdev/New folder/firebase.js'
+import { auth } from '../firebase.js'
 import {Image} from 'react-native'
+import Google from '../components/SocialLogin'
+
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
@@ -19,16 +21,10 @@ const LoginScreen = () => {
 
     return unsubscribe
   }, [])
-
-  const handleSignUp = () => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(userCredentials => {
-        const user = userCredentials.user;
-        console.log('Registered with:', user.email);
-      })
-      .catch(error => alert(error.message))
+  const gotosignup = () =>{
+    navigation.replace("Register")
   }
+  
 
   const handleLogin = () => {
     auth
@@ -78,11 +74,19 @@ const LoginScreen = () => {
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={handleSignUp}
+          onPress={gotosignup}
           style={[styles.button, styles.buttonOutline]}
         >
           <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={Google}
+          style={[styles.button, styles.buttonOutline]}
+        >
+          <Text style={styles.buttonOutlineText}>Google Login</Text>
+        </TouchableOpacity>
+          <Image source={require('E:/Appdev/enroute1/screens/img/googlebutton.PNG')} />
+        
       </View>
     </View>
   
@@ -100,6 +104,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top:100
   },
+  social:{
+    flexDirection:'row',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -107,7 +115,7 @@ const styles = StyleSheet.create({
     backgroundColor:'black'
   },
   inputContainer: {
-    width: '80%',
+    width: '70%',
     borderBottomColor:'white'
   },
   input: {
@@ -116,7 +124,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 10,
     marginTop: 5,
-    borderWidth:2,
+    borderWidth:1,
     // borderBottomColor:'white'
   },
   buttonContainer: {
