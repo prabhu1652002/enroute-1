@@ -25,7 +25,7 @@ const SignupScreen = () => {
     navigation.replace("Login")
   }
   const handleSignUp = () => {
-    if(checkpassword==password){
+    if(checkpassword== password){
       auth
       .createUserWithEmailAndPassword(email,password)
       .then(userCredentials => {
